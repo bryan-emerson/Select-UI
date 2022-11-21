@@ -1,4 +1,3 @@
-
 import styles from "./select.module.css";
 
 type SelectOption = {
@@ -12,10 +11,12 @@ type SelectProps = {
   onChange: (value: SelectOption | undefined) => void
 }
 
-export function Select({value, onChange, options}: SelectProps) {
+export function Select({ value, onChange, options }: SelectProps) {
   return (
-    <div className="container">
-
-    </div>
+    <>
+      <div className={styles.container}>
+        Hi
+      </div>
+    </>
   )
 }
