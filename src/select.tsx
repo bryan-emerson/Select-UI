@@ -14,14 +14,14 @@ type SelectProps = {
 export function Select({ value, onChange, options }: SelectProps) {
   return (
     <>
-      <div className={styles.container}>
+      <div tabIndex={0} className={styles.container}>
         <span className={styles.value}>value</span>
         <button className={styles["clear-btn"]}>&times;</button>
         <div className={styles.divider}></div>
         <div className={styles.caret}></div>
         <ul className={styles.options}>
           {options.map(option=>(
-            <li key={option.value} className={styles.option}>
+            <li key={option.label} className={styles.option}>
               {option.label}
             </li>
           ))}
