@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./select.module.css";
 
 type SelectOption = {
   label: string
-  value: number
+  value: string | number
 }
 
 type SelectProps = {
@@ -21,12 +21,16 @@ export function Select({ value, onChange, options }: SelectProps) {
   }
 
   function selectOption(option: SelectOption) {
-    onChange(option)
+    if (option !== value) onChange(option)
   }
 
   function isOptionSelected(option: SelectOption) {
     return option === value
   }
+
+  useEffect(() => {
+    if (isOpen) setHighlightedIndex(0)
+  }, [isOpen])
 
   return (
     <>
@@ -52,7 +56,7 @@ export function Select({ value, onChange, options }: SelectProps) {
                 setIsOpen(false)
               }}
               onMouseEnter={() => setHighlightedIndex(index)}
-              key={option.label}
+              key={option.value}
               className={`${styles.option} ${
                 isOptionSelected(option) ? styles.selected : ""
               } ${
