@@ -23,6 +23,11 @@ export function Select({ value, onChange, options }: SelectProps) {
     onChange(option)
   }
 
+  function isOptionSelected(option: SelectOption) {
+    return option === value
+  }
+
+
   return (
     <>
       <div
@@ -40,12 +45,14 @@ export function Select({ value, onChange, options }: SelectProps) {
         <div className={styles.caret}></div>
         <ul className={`${styles.options} ${isOpen ? styles.show : ""}`}>
           {options.map(option => (
-            <li onClick={e => {
-              e.stopPropagation()
-              selectOption(option)
-              setIsOpen(false)
-            }}
-            key={option.label} className={styles.option}>
+            <li
+              onClick={e => {
+                e.stopPropagation()
+                selectOption(option)
+                setIsOpen(false)
+              }}
+              key={option.label}
+              className={`${styles.option} ${isOptionSelected(option) ? styles.selected : ""}`}>
               {option.label}
             </li>
           ))}
