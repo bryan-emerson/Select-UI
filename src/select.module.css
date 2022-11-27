@@ -6,6 +6,7 @@ border: .05em solid #777;
 display: flex;
 align-items: center;
 gap: .5em;
+padding: .5em;
 border-radius: .25em;
 outline: none;
 }
@@ -19,7 +20,7 @@ outline: none;
 }
 
 .clear-btn {
-  background-color: none;
+  background-color: white;
   color: #777;
   border: none;
   outline: none;
@@ -37,13 +38,13 @@ outline: none;
   background-color: #777;
   align-self: stretch;
   width: .05em;
-  margin: .25em;
 }
 
 .caret {
   translate: 0 25%;
   border: .25em solid transparent;
   border-top-color: #777;
+  margin-right: .25em;
 }
 
 .options {
@@ -65,4 +66,18 @@ outline: none;
 
 .options.show {
   display: block;
+}
+
+.option {
+  padding: .25em, .5em;
+  cursor: pointer;
+}
+
+.option.highlighted {
+  background-color: hsl(200, 100%, 50%);
+  color: white;
+}
+
+.option.selected {
+  background-color: hsl(200, 100%, 70%);
 }
