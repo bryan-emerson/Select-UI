@@ -19,6 +19,10 @@ export function Select({ value, onChange, options }: SelectProps) {
     onChange(undefined)
   }
 
+  function selectOption(option: SelectOption) {
+    onChange(option)
+  }
+
   return (
     <>
       <div
@@ -30,13 +34,18 @@ export function Select({ value, onChange, options }: SelectProps) {
         <span className={styles.value}>{value?.label}</span>
         <button onClick={e => {
           e.stopPropagation()
-          clearOptions();
+          clearOptions()
         }} className={styles["clear-btn"]}>&times;</button>
         <div className={styles.divider}></div>
         <div className={styles.caret}></div>
         <ul className={`${styles.options} ${isOpen ? styles.show : ""}`}>
           {options.map(option => (
-            <li key={option.label} className={styles.option}>
+            <li onClick={e => {
+              e.stopPropagation()
+              selectOption(option)
+              setIsOpen(false)
+            }}
+            key={option.label} className={styles.option}>
               {option.label}
             </li>
           ))}
