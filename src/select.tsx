@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./select.module.css";
 
 export type SelectOption = {
@@ -24,6 +24,7 @@ type SelectProps = {
 export function Select({ multiple, value, onChange, options }: SelectProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [highlightedIndex, setHighlightedIndex] = useState(0)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   function clearOptions() {
     multiple ? onChange([]) : onChange(undefined)
@@ -49,9 +50,27 @@ export function Select({ multiple, value, onChange, options }: SelectProps) {
     if (isOpen) setHighlightedIndex(0)
   }, [isOpen])
 
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.target != containerRef.current) return
+      switch (e.code) {
+        case "Enter" :
+          case "Space" :
+            setIsOpen(prev => !prev)
+            break
+      }
+    }
+    containerRef.current?.addEventListener("keydown", handler)
+
+    return () => {
+    containerRef.current?.removeEventListener("keydown", handler)
+    }
+  }, [])
+
   return (
     <>
       <div
+      ref={containerRef}
         onBlur={() => setIsOpen(false)}
         onClick={() => setIsOpen(prev => !prev)}
         tabIndex={0}
